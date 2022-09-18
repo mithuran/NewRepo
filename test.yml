@@ -1,0 +1,19 @@
+---
+- name: Test ios_facts
+  hosts: router
+  gather_facts: false
+  connection: network_cli
+  tasks:
+
+  - name: Get iOS device details
+    ios_facts:
+      gather_subset: all
+    register: My_Reg
+
+  - name: Display the hostname
+    debug:
+        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
+
+  - name: Print registered Output
+    debug: 
+      var: My_Reg
